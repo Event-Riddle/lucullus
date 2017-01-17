@@ -14,6 +14,11 @@
 			"Rev": "13afcbe8e41508479762a90e9242577210c2ca8d"
 		},
 		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.1-27-g757bef9",
+			"Rev": "757bef944d0f21880861c2dd9c871ca543023cba"
+		},
+		{
 			"ImportPath": "github.com/streadway/amqp",
 			"Rev": "2e25825abdbd7752ff08b270d313b93519a0a232"
 		},

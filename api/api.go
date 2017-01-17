@@ -10,6 +10,15 @@ import (
 var apiPrefix = "/api/v1/"
 var filterURL = "http://riddle-filter.ng.mybluemix.net"
 
+type Filter struct {
+	Active              bool    `json:"active"`
+	Topic               string  `json:"topic"`
+	FilterTopId         string  `json:"filter-top-id"`
+	FilterBottomId      string  `json:"filter-bottom-id"`
+	TresholdValueTop    float64 `json:"treshold-value-top"`
+	TresholdValueButtom float64 `json:"treshhold-value-bottom"`
+}
+
 func RegisterHandlers() {
 	router := mux.NewRouter()
 	router.HandleFunc(apiPrefix+"start", startHandlerChain).Methods("POST")
