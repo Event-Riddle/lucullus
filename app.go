@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"log"
+	"masterjulz/lucullus/api"
 	Honey "masterjulz/lucullus/honeypotconn"
 	OW "masterjulz/lucullus/openwhisk"
 	WIOT "masterjulz/lucullus/wiot"
@@ -31,6 +32,8 @@ func main() {
 		port = DEFAULT_PORT
 	}
 
+	api.RegisterHandlers()
+
 	http.HandleFunc("/", helloworld)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
@@ -54,7 +57,7 @@ func main() {
 
 	wiot.Connect()
 	go wiot.Subscribe(honey)
-	wiot.Publish5Messages()
+	//wiot.Publish5Messages()
 	go honey.Subscribe("lucullus")
 
 	select {}
