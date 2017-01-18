@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/gorilla/mux"
+	"github.com/rs/cors"
 )
 
 var apiPrefix = "/api/v1/"
@@ -19,10 +20,12 @@ type Filter struct {
 	TresholdValueButtom float64 `json:"treshhold-value-bottom"`
 }
 
-func RegisterHandlers() {
+func RegisterHandlers() http.Handler {
 	router := mux.NewRouter()
 	router.HandleFunc(apiPrefix+"start", startHandlerChain).Methods("POST")
 	http.Handle(apiPrefix, router)
+	handler := cors.Default().Handler(router)
+	return handler
 }
 
 func startHandlerChain(w http.ResponseWriter, r *http.Request) {

@@ -32,13 +32,13 @@ func main() {
 		port = DEFAULT_PORT
 	}
 
-	api.RegisterHandlers()
+	handler := api.RegisterHandlers()
 
 	http.HandleFunc("/", helloworld)
 	http.Handle("/static/", http.StripPrefix("/static/", http.FileServer(http.Dir("static"))))
 
 	log.Printf("Starting app on port %+v\n", port)
-	go http.ListenAndServe(":"+port, nil)
+	go http.ListenAndServe(":"+port, handler)
 
 	ow := OW.New(
 		"MjAxNTU1YjMtMDlhYy00MDI1LTk3OGMtMjJhYWZiYjM4OThiOnVRbTFMQmdPNzVtMWl5Q1prVE10S3NPQTBOWWhmdGxWMTJsY1ZFd29KRVpnMEgyWFRYbG95cjlEWEZNRlh5emg=",
