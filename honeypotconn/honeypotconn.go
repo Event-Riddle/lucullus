@@ -37,25 +37,26 @@ func (hp *HoneyPot) Subscribe(topic string) {
 	autoAck, exclusive, noLocal, noWait := false, false, false, false
 	messages, _ := channel.Consume(topic, "#", autoAck, exclusive, noLocal, noWait, nil)
 	multiAck := false
+	in := 1
 	for msg := range messages {
-		fmt.Println("Body:", string(msg.Body), "Timestamp:", msg.Timestamp)
+		in++
+		fmt.Println("Body:", string(msg.Body), "Timestamp:", msg.Timestamp, in)
 		msg.Ack(multiAck)
 		hp.openWhisk.TriggerAction("hello", `{"arg":"moto"}`)
 	}
 }
 
 func (hp *HoneyPot) Publish(key string, payload string) {
-	timer := time.NewTicker(1 * time.Second)
-	for t := range timer.C {
-		msg := amqp.Publishing{
-			DeliveryMode: 1,
-			Timestamp:    t,
-			ContentType:  "application/json",
-			Body:         []byte(payload),
-		}
-		mandatory, immediate := false, false
-		hp.pubChannel.Publish("amq.topic", key, mandatory, immediate, msg)
+	// for t := range timer.C {
+	msg := amqp.Publishing{
+		DeliveryMode: 1,
+		Timestamp:    time.Now(),
+		ContentType:  "application/json",
+		Body:         []byte(payload),
 	}
+	mandatory, immediate := false, false
+	hp.pubChannel.Publish("amq.topic", key, mandatory, immediate, msg)
+	// }
 }
 
 func (hp *HoneyPot) CloseConnection() {

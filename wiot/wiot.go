@@ -75,10 +75,10 @@ func sayHello(client MQTT.Client, msg MQTT.Message, honey *Honey.HoneyPot) {
 
 func (wiot *WatsonIoT) Publish5Messages() {
 	for i := 0; i < 5; i++ {
-		fmt.Println("message")
 		//	text  := fmt.Println("{\"msg\":\"hallo\"}")
-		token := wiot.Client.Publish(wiot.Topic, 1, false, "{\"HELLO\":\"WORLD\"}")
+		token := wiot.Client.Publish(wiot.Topic, 1, false, "{\"Degree\":30}")
 
 		token.Wait()
 	}
+	fmt.Println("Published 5 messages")
 }

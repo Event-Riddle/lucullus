@@ -42,7 +42,7 @@ func doRequest(req *http.Request, client http.Client) {
 	}
 	defer resp.Body.Close()
 	body, _ := ioutil.ReadAll(resp.Body)
-	fmt.Printf("%s", body)
+	fmt.Printf("OPEN WHIS RESPONSE: %s", body)
 }
 
 func addHeader(req *http.Request, token string) {
